@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heng Heap Guest House</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Poppins',sans-serif;
+  scroll-behavior:smooth;
+}
+h1,h2,h3{
+  font-family:'Playfair Display',serif;
+}
+
+/* HERO */
+.hero-bg{
+  background: linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+  url('./photo4.jpg');
+  background-size:cover;
+  background-position:center;
+}
+
+/* Fade */
+.fade-in{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 1s ease;
+}
+.fade-in.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Room hover */
+.room-card{
+  transition:0.4s;
+}
+.room-card:hover{
+  transform:translateY(-12px);
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+/* Button glow */
+button:hover{
+  box-shadow:0 0 20px rgba(234,179,8,.8);
+}
+
+/* Slider fade */
+#slider{
+  transition:opacity 0.6s ease-in-out;
+}
+</style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+<!-- LOADER -->
+<div id="loader" class="fixed inset-0 bg-black flex items-center justify-center z-[9999]">
+  <div class="text-center">
+    <div class="w-16 h-16 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+    <p class="text-white mt-4 text-lg tracking-widest">HENG HEAP HOTEL</p>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-lg fixed w-full z-50 transition">
+<div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+<h1 class="text-2xl font-bold text-yellow-600">Heng Heap Guest House</h1>
+<div class="space-x-6 hidden md:block">
+<a href="#rooms" class="hover:text-yellow-600">Rooms</a>
+<a href="#booking" class="hover:text-yellow-600">Booking</a>
+<a href="#gallery" class="hover:text-yellow-600">Gallery</a>
+<a href="#contact" class="hover:text-yellow-600">Contact</a>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-bg h-screen flex items-center justify-center text-center text-white">
+<div>
+<h1 class="text-5xl md:text-7xl font-bold mb-6">Luxury & Comfort</h1>
+<p class="mb-8 text-lg">Experience elegance in Prey Veng</p>
+<a href="#booking" class="bg-yellow-600 hover:bg-yellow-700 px-8 py-3 rounded-full text-white text-lg transition">Book Now</a>
+</div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms" class="py-20 bg-white fade-in">
+<div class="max-w-6xl mx-auto px-4">
+<h2 class="text-4xl text-center mb-4 font-bold">Our Rooms</h2>
+
+<p class="text-center text-lg mb-8">
+Rooms Available: 
+<span id="roomCounter" class="text-yellow-600 font-bold text-2xl">13</span>
+</p>
+
+<div class="grid md:grid-cols-2 gap-8">
+
+<div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
+<h3 class="text-2xl font-semibold mb-2">1 Bed + Fan</h3>
+<p class="text-yellow-600 font-bold text-xl">$5 / Night</p>
+</div>
+
+<div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
+<h3 class="text-2xl font-semibold mb-2">1 Bed + AC</h3>
+<p class="text-yellow-600 font-bold text-xl">$10 / Night</p>
+</div>
+
+<div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
+<h3 class="text-2xl font-semibold mb-2">2 Beds + Fan</h3>
+<p class="text-yellow-600 font-bold text-xl">$7.5 / Night</p>
+</div>
+
+<div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
+<h3 class="text-2xl font-semibold mb-2">2 Beds + AC</h3>
+<p class="text-yellow-600 font-bold text-xl">$15 / Night</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="py-20 bg-gray-900 text-white fade-in">
+<div class="max-w-4xl mx-auto px-4">
+<h2 class="text-4xl text-center mb-10 font-bold">Book Your Stay</h2>
+
+<form id="bookingForm" class="grid md:grid-cols-2 gap-6">
+
+<input type="text" placeholder="Full Name" required class="p-3 rounded bg-gray-800 text-white">
+<input type="tel" placeholder="Phone Number" required class="p-3 rounded bg-gray-800 text-white">
+
+<div>
+<label>Check-in</label>
+<input type="date" required class="w-full p-3 rounded bg-gray-800 text-white">
+</div>
+
+<div>
+<label>Check-out</label>
+<input type="date" required class="w-full p-3 rounded bg-gray-800 text-white">
+</div>
+
+<select required class="p-3 rounded bg-gray-800 text-white md:col-span-2">
+<option value="">Select Room Type</option>
+<option>1 Bed + Fan ($5)</option>
+<option>1 Bed + AC ($10)</option>
+<option>2 Beds + Fan ($7.5)</option>
+<option>2 Beds + AC ($15)</option>
+</select>
+
+<button class="bg-yellow-600 p-3 rounded md:col-span-2 text-lg transition">
+Confirm Booking
+</button>
+
+</form>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-20 px-4 bg-white fade-in">
+<h2 class="text-4xl text-center mb-10 font-bold">Gallery</h2>
+
+<div class="max-w-md mx-auto relative aspect-[3/4]">
+<img id="slider" src="./photo1.jpg" class="w-full h-full object-cover rounded-xl shadow-lg">
+</div>
+
+<div class="flex justify-center mt-6 space-x-4">
+<button onclick="prevSlide()" class="bg-gray-800 text-white px-4 py-2 rounded">Prev</button>
+<button onclick="nextSlide()" class="bg-gray-800 text-white px-4 py-2 rounded">Next</button>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 bg-gray-800 text-white text-center fade-in">
+<h2 class="text-4xl mb-6 font-bold">Contact Us</h2>
+<p>📞 096 73 4444 3 | 031 908 97 97</p>
+<p>📧 youhoing@gmail.com</p>
+<p>Preah Sdach, Prey Veng, Cambodia</p>
+</section>
+
+<footer class="bg-black text-white text-center py-6">
+© 2026 Heng Heap Guest House. All Rights Reserved.
+</footer>
+
+<!-- TELEGRAM BUTTON -->
+<a href="https://t.me/youhoing" 
+   target="_blank"
+   class="fixed bottom-6 right-6 text-white p-4 rounded-full transition transform hover:scale-110 z-50 flex items-center justify-center">
+    <img src="./telegram.png" alt="Telegram" class="w-12 h-12">
+</a>
+
+<script>
+
+// LOADER
+window.addEventListener("load",()=>{
+setTimeout(()=>{document.getElementById("loader").style.display="none";},1200);
+});
+
+// FADE SCROLL
+const faders=document.querySelectorAll('.fade-in');
+window.addEventListener('scroll',()=>{
+faders.forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-100){
+el.classList.add('show');
+}
+});
+});
+
+// SLIDER
+const images=["./photo1.jpg","./photo3.jpg","./photo5.jpg"];
+let currentSlide=0;
+const slider=document.getElementById("slider");
+
+function showSlide(){
+slider.style.opacity=0;
+setTimeout(()=>{
+slider.src=images[currentSlide];
+slider.style.opacity=1;
+},300);
+}
+function nextSlide(){
+currentSlide=(currentSlide+1)%images.length;
+showSlide();
+}
+function prevSlide(){
+currentSlide=(currentSlide-1+images.length)%images.length;
+showSlide();
+}
+setInterval(nextSlide,4000);
+
+// ROOM COUNTER
+let totalRooms=13;
+const counter=document.getElementById("roomCounter");
+
+// TELEGRAM BOOKING
+const bookingForm=document.getElementById("bookingForm");
+
+bookingForm.addEventListener("submit",function(e){
+e.preventDefault();
+
+if(totalRooms<=0){
+alert("No rooms available!");
+return;
+}
+
+totalRooms--;
+counter.textContent=totalRooms;
+
+const name=this.querySelector('input[type="text"]').value;
+const phone=this.querySelector('input[type="tel"]').value;
+const checkin=this.querySelectorAll('input[type="date"]')[0].value;
+const checkout=this.querySelectorAll('input[type="date"]')[1].value;
+const room=this.querySelector("select").value;
+
+const message=`
+🏨 NEW BOOKING
+Name: ${name}
+Phone: ${phone}
+Check-in: ${checkin}
+Check-out: ${checkout}
+Room: ${room}
+`;
+
+const token="YOUR_BOT_TOKEN";
+const chat_id="YOUR_CHAT_ID";
+
+fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({chat_id:chat_id,text:message})
+})
+.then(res=>res.json())
+.then(data=>{
+alert("Booking Sent Successfully!");
+bookingForm.reset();
+})
+.catch(err=>{
+alert("Error sending booking!");
+});
+
+});
+
+</script>
+
+</body>
+</html>
