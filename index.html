@@ -70,7 +70,7 @@ button:hover{
 </div>
 
 <!-- NAVBAR -->
-<nav class="bg-white shadow-lg fixed w-full z-50 transition">
+<nav class="bg-white shadow-lg fixed w-full z-50">
 <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 <h1 class="text-2xl font-bold text-yellow-600">Heng Heap Guest House</h1>
 <div class="space-x-6 hidden md:block">
@@ -102,7 +102,6 @@ Rooms Available:
 </p>
 
 <div class="grid md:grid-cols-2 gap-8">
-
 <div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
 <h3 class="text-2xl font-semibold mb-2">1 Bed + Fan</h3>
 <p class="text-yellow-600 font-bold text-xl">$5 / Night</p>
@@ -122,7 +121,6 @@ Rooms Available:
 <h3 class="text-2xl font-semibold mb-2">2 Beds + AC</h3>
 <p class="text-yellow-600 font-bold text-xl">$15 / Night</p>
 </div>
-
 </div>
 </div>
 </section>
@@ -133,7 +131,6 @@ Rooms Available:
 <h2 class="text-4xl text-center mb-10 font-bold">Book Your Stay</h2>
 
 <form id="bookingForm" class="grid md:grid-cols-2 gap-6">
-
 <input type="text" placeholder="Full Name" required class="p-3 rounded bg-gray-800 text-white">
 <input type="tel" placeholder="Phone Number" required class="p-3 rounded bg-gray-800 text-white">
 
@@ -158,7 +155,6 @@ Rooms Available:
 <button class="bg-yellow-600 p-3 rounded md:col-span-2 text-lg transition">
 Confirm Booking
 </button>
-
 </form>
 </div>
 </section>
@@ -189,18 +185,8 @@ Confirm Booking
 © 2026 Heng Heap Guest House. All Rights Reserved.
 </footer>
 
-<!-- TELEGRAM BUTTON -->
-<a href="https://t.me/youhoing" 
-   target="_blank"
-   class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg transition transform hover:scale-110 z-50 flex items-center gap-2">
-
-    <img src="./telegram.png" alt="Telegram" class="w-6 h-6">
-
-    <span class="font-semibold">Telegram</span>
-
-</a>
-
 <script>
+document.addEventListener("DOMContentLoaded", function(){
 
 // LOADER
 window.addEventListener("load",()=>{
@@ -221,6 +207,7 @@ el.classList.add('show');
 const images=["./photo1.jpg","./photo3.jpg","./photo5.jpg","./photo6.jpg"];
 let currentSlide=0;
 const slider=document.getElementById("slider");
+let slideInterval=setInterval(nextSlide,4000);
 
 function showSlide(){
 slider.style.opacity=0;
@@ -237,7 +224,13 @@ function prevSlide(){
 currentSlide=(currentSlide-1+images.length)%images.length;
 showSlide();
 }
-setInterval(nextSlide,4000);
+
+// Pause on hover
+slider.addEventListener("mouseenter",()=>clearInterval(slideInterval));
+slider.addEventListener("mouseleave",()=>slideInterval=setInterval(nextSlide,4000));
+
+window.nextSlide=nextSlide;
+window.prevSlide=prevSlide;
 
 // ROOM COUNTER
 let totalRooms=13;
@@ -257,40 +250,11 @@ return;
 totalRooms--;
 counter.textContent=totalRooms;
 
-const name=this.querySelector('input[type="text"]').value;
-const phone=this.querySelector('input[type="tel"]').value;
-const checkin=this.querySelectorAll('input[type="date"]')[0].value;
-const checkout=this.querySelectorAll('input[type="date"]')[1].value;
-const room=this.querySelector("select").value;
-
-const message=`
-🏨 NEW BOOKING
-Name: ${name}
-Phone: ${phone}
-Check-in: ${checkin}
-Check-out: ${checkout}
-Room: ${room}
-`;
-
-const token="YOUR_BOT_TOKEN";
-const chat_id="YOUR_CHAT_ID";
-
-fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({chat_id:chat_id,text:message})
-})
-.then(res=>res.json())
-.then(data=>{
-alert("Booking Sent Successfully!");
+alert("Booking Successful!");
 bookingForm.reset();
-})
-.catch(err=>{
-alert("Error sending booking!");
 });
 
 });
-
 </script>
 
 </body>
