@@ -27,7 +27,7 @@ h1,h2,h3{
   background-position:center;
 }
 
-/* Fade */
+/* Fade Animation */
 .fade-in{
   opacity:0;
   transform:translateY(40px);
@@ -38,7 +38,7 @@ h1,h2,h3{
   transform:translateY(0);
 }
 
-/* Room hover */
+/* Room Hover */
 .room-card{
   transition:0.4s;
 }
@@ -47,12 +47,12 @@ h1,h2,h3{
   box-shadow:0 20px 40px rgba(0,0,0,.2);
 }
 
-/* Button glow */
+/* Button Glow */
 button:hover{
   box-shadow:0 0 20px rgba(234,179,8,.8);
 }
 
-/* Slider fade */
+/* Slider Fade */
 #slider{
   transition:opacity 0.6s ease-in-out;
 }
@@ -102,6 +102,7 @@ Rooms Available:
 </p>
 
 <div class="grid md:grid-cols-2 gap-8">
+
 <div class="p-6 bg-gray-100 rounded-xl shadow-lg room-card">
 <h3 class="text-2xl font-semibold mb-2">1 Bed + Fan</h3>
 <p class="text-yellow-600 font-bold text-xl">$5 / Night</p>
@@ -121,6 +122,7 @@ Rooms Available:
 <h3 class="text-2xl font-semibold mb-2">2 Beds + AC</h3>
 <p class="text-yellow-600 font-bold text-xl">$15 / Night</p>
 </div>
+
 </div>
 </div>
 </section>
@@ -186,18 +188,19 @@ Confirm Booking
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
 
 // LOADER
 window.addEventListener("load",()=>{
-setTimeout(()=>{document.getElementById("loader").style.display="none";},1200);
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},1200);
 });
 
 // FADE SCROLL
 const faders=document.querySelectorAll('.fade-in');
 window.addEventListener('scroll',()=>{
 faders.forEach(el=>{
-if(el.getBoundingClientRect().top<window.innerHeight-100){
+if(el.getBoundingClientRect().top < window.innerHeight-100){
 el.classList.add('show');
 }
 });
@@ -207,7 +210,6 @@ el.classList.add('show');
 const images=["./photo1.jpg","./photo3.jpg","./photo5.jpg","./photo6.jpg"];
 let currentSlide=0;
 const slider=document.getElementById("slider");
-let slideInterval=setInterval(nextSlide,4000);
 
 function showSlide(){
 slider.style.opacity=0;
@@ -216,27 +218,25 @@ slider.src=images[currentSlide];
 slider.style.opacity=1;
 },300);
 }
+
 function nextSlide(){
 currentSlide=(currentSlide+1)%images.length;
 showSlide();
 }
+
 function prevSlide(){
 currentSlide=(currentSlide-1+images.length)%images.length;
 showSlide();
 }
 
-// Pause on hover
-slider.addEventListener("mouseenter",()=>clearInterval(slideInterval));
-slider.addEventListener("mouseleave",()=>slideInterval=setInterval(nextSlide,4000));
-
-window.nextSlide=nextSlide;
-window.prevSlide=prevSlide;
+// AUTO RUN
+setInterval(nextSlide,4000);
 
 // ROOM COUNTER
 let totalRooms=13;
 const counter=document.getElementById("roomCounter");
 
-// TELEGRAM BOOKING
+// BOOKING
 const bookingForm=document.getElementById("bookingForm");
 
 bookingForm.addEventListener("submit",function(e){
@@ -254,7 +254,6 @@ alert("Booking Successful!");
 bookingForm.reset();
 });
 
-});
 </script>
 
 </body>
